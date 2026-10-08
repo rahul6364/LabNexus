@@ -1,0 +1,36 @@
+- name: Deploy approved software
+  hosts: windows
+  gather_facts: false
+  tasks:
+    - name: Check current state
+      ansible.windows.win_stat:
+        path: "{{ sw.verify_path }}"
+      register: current
+
+    - name: Download, install, clean up (only if missing)
+      when: not current.stat.exists
+      block:
+        - name: Download approved installer
+          ansible.windows.win_get_url:
+            url: "{{ sw.url }}"
+            dest: 'C:\Windows\Temp\{{ sw.id }}.msi'
+            checksum: "{{ sw.sha256 }}"
+            checksum_algorithm: sha256
+        - name: Install
+          ansible.windows.win_package:
+            path: 'C:\Windows\Temp\{{ sw.id }}.msi'
+            state: present
+      always:
+        - name: Remove installer
+          ansible.windows.win_file:
+            path: 'C:\Windows\Temp\{{ sw.id }}.msi'
+            state: absent
+
+    - name: Read installed version
+      ansible.windows.win_file_version:
+        path: "{{ sw.verify_path }}"
+      register: ver
+
+    - name: Report
+      ansible.builtin.debug:
+        msg: "RESULT host={{ inventory_hostname }} version={{ ver.win_file_version.file_version }}"

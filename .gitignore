@@ -1,0 +1,32 @@
+cat > .gitignore <<'EOF'
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Ansible
+*.retry
+.vault_pass
+
+# Secrets
+.env
+*.secret
+*.password
+credentials*
+*.pem
+*.key
+
+# Software installers
+approved-software/*.exe
+approved-software/*.msi
+approved-software/*.zip
+
+# Logs / generated history
+history/*.log
+history/jobs.jsonl
+
+# OS
+.DS_Store
+Thumbs.db
+inventory.ini

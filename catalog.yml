@@ -1,0 +1,20 @@
+# Approved software catalog
+#
+# Add only software approved by the System Administrator.
+# Do not commit installer files or credentials.
+
+software_1:
+  name: "REPLACE_WITH_SOFTWARE_NAME"
+  version: "REPLACE_WITH_VERSION"
+  id: "software_1"
+  url: "http://CONTROLLER_IP:8000/REPLACE_WITH_INSTALLER.msi"
+  sha256: "REPLACE_WITH_SHA256"
+  verify_path: 'C:\Program Files\REPLACE_WITH\software.exe'
+
+software_2:
+  name: "REPLACE_WITH_SOFTWARE_NAME"
+  version: "REPLACE_WITH_VERSION"
+  id: "software_2"
+  url: "http://CONTROLLER_IP:8000/REPLACE_WITH_INSTALLER.msi"
+  sha256: "REPLACE_WITH_SHA256"
+  verify_path: 'C:\Program Files\REPLACE_WITH\software.exe'
